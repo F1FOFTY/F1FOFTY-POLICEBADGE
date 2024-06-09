@@ -10,34 +10,36 @@ local function isAllowedJob(job)
     return false
 end
 
-RegisterNetEvent('qb-flashbadge:client:useBadge')
-AddEventHandler('qb-flashbadge:client:useBadge', function()
+local function notifyPlayer(message, type)
+    QBCore.Functions.Notify(message, type)
+end
+
+local function getPlayerData()
+    return QBCore.Functions.GetPlayerData()
+end
+
+local function flashBadge()
     local playerPed = PlayerPedId()
     local playerCoords = GetEntityCoords(playerPed)
     local targetPed, targetDistance = QBCore.Functions.GetClosestPed(playerCoords)
-    local playerJob = QBCore.Functions.GetPlayerData().job.name
+    local playerJob = getPlayerData().job.name
 
     if targetPed ~= 0 and targetDistance <= Config.MaxDistance then
         if isAllowedJob(playerJob) then
             TriggerServerEvent('badge:server:flashBadge', GetPlayerServerId(NetworkGetEntityOwner(targetPed)))
         else
-            QBCore.Functions.Notify(Config.Messages.StolenBadge, 'error')
-            SendNUIMessage({
-                action = "showStolenBadge"
-            })
+            notifyPlayer(Config.Messages.StolenBadge, 'error')
+            SendNUIMessage({ action = "showStolenBadge" })
         end
     else
-        QBCore.Functions.Notify(Config.Messages.NoOneNearby, 'error')
+        notifyPlayer(Config.Messages.NoOneNearby, 'error')
     end
-end)
+end
 
-RegisterCommand('flashbadge', function()
-    TriggerEvent('qb-flashbadge:client:useBadge')
-end, false)
-
-RegisterCommand('openrankui', function()
-    local playerData = QBCore.Functions.GetPlayerData()
+local function openRankUI()
+    local playerData = getPlayerData()
     local playerJob = playerData.job.name
+
     if isAllowedJob(playerJob) then
         SetNuiFocus(true, true)
         SendNUIMessage({
@@ -49,23 +51,25 @@ RegisterCommand('openrankui', function()
             department = playerJob
         })
     end
-end, false)
+end
+
+RegisterCommand('flashbadge', flashBadge, false)
+
+RegisterCommand('openrankui', openRankUI, false)
+
+RegisterNetEvent('qb-flashbadge:client:useBadge')
+AddEventHandler('qb-flashbadge:client:useBadge', flashBadge)
 
 RegisterNUICallback('close', function()
     SetNuiFocus(false, false)
 end)
 
 RegisterNUICallback('changeRank', function(data, cb)
-    local newRank = data.rank
-    TriggerServerEvent('badge:server:changeRank', newRank)
+    TriggerServerEvent('badge:server:changeRank', data.rank)
     cb('ok')
 end)
 
 RegisterNUICallback('updateInfo', function(data, cb)
-    local newName = data.name
-    local newBadgeNumber = data.badgeNumber
-    local newPicture = data.picture
-    local newDepartment = data.department
-    TriggerServerEvent('badge:server:updateInfo', newName, newBadgeNumber, newPicture, newDepartment)
+    TriggerServerEvent('badge:server:updateInfo', data.name, data.badgeNumber, data.picture, data.department)
     cb('ok')
 end)

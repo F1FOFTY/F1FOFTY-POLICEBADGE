@@ -24,7 +24,7 @@ function closeUI() {
 
 function changeRank() {
     let rank = document.getElementById('rank').value;
-    fetch('https://MILLER-POLICEBADGE/changeRank', {
+    fetch('https://qb-flashbadge/changeRank', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ function updateInfo() {
     let picture = document.getElementById('picture').value;
     let department = document.getElementById('department').value;
 
-    fetch('https://MILLER-POLICEBADGE/updateInfo', {
+    fetch('https://qb-flashbadge/updateInfo', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -47,3 +47,4 @@ function updateInfo() {
         body: JSON.stringify({ name: name, badgeNumber: badgeNumber, picture: picture, department: department })
     });
 }
+

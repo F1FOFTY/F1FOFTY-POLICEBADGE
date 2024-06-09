@@ -3,30 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Change Rank</title>
+    <title>Badge Management</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div id="app">
-        <h1>Change Rank</h1>
-        <label for="name">Name:</label>
-        <input type="text" id="name" placeholder="Enter your name">
-        <label for="badgeNumber">Badge Number:</label>
-        <input type="text" id="badgeNumber" placeholder="Enter your badge number">
-        <label for="picture">Picture URL:</label>
-        <input type="text" id="picture" placeholder="Enter picture URL">
-        <label for="department">Select Department:</label>
-        <select id="department">
-            <option value="police">LSPD</option>
-            <option value="bcso">BCSO</option>
-            <option value="sast">SAST</option>
-            <option value="fib">FIB</option>
-        </select>
-        <label for="rank">Rank:</label>
-        <input type="text" id="rank" placeholder="Enter your rank">
-        <button onclick="changeRank()">Change Rank</button>
-        <button onclick="updateInfo()">Update Info</button>
-        <button onclick="closeUI()">Close</button>
+        <div class="container">
+            <h1>Badge Management</h1>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label for="badgeNumber">Badge Number:</label>
+                <input type="text" id="badgeNumber" placeholder="Enter your badge number">
+            </div>
+            <div class="form-group">
+                <label for="picture">Picture URL:</label>
+                <input type="text" id="picture" placeholder="Enter picture URL">
+            </div>
+            <div class="form-group">
+                <label for="department">Department:</label>
+                <select id="department">
+                    <option value="police">LSPD</option>
+                    <option value="bcso">BCSO</option>
+                    <option value="sast">SAST</option>
+                    <option value="fib">FIB</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="rank">Rank:</label>
+                <input type="text" id="rank" placeholder="Enter your rank">
+            </div>
+            <div class="button-group">
+                <button onclick="changeRank()">Change Rank</button>
+                <button onclick="updateInfo()">Update Info</button>
+                <button onclick="closeUI()">Close</button>
+            </div>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>
