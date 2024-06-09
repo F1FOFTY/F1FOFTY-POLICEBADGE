@@ -17,14 +17,14 @@ window.addEventListener('message', function(event) {
 });
 
 function closeUI() {
-    fetch('https://qb-flashbadge/close', {
+    fetch('https://miller-policebadge/close', {
         method: 'POST'
     });
 }
 
 function changeRank() {
     let rank = document.getElementById('rank').value;
-    fetch('https://qb-flashbadge/changeRank', {
+    fetch('https://miller-policebadge/changeRank', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ function updateInfo() {
     let picture = document.getElementById('picture').value;
     let department = document.getElementById('department').value;
 
-    fetch('https://qb-flashbadge/updateInfo', {
+    fetch('https://miller-policebadge/updateInfo', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
